@@ -9,8 +9,8 @@ def my_counter(file_name):
         file_data = open(file_name, mode='r', encoding='UTF-8')
         content = file_data.read()
         file_data.close()
-    except:
-        print(f'File cannot be opened or read: {file_name}')
+    except Exception as Ex:
+        print(f'Error message >>> {Ex}')
         quit()
     try:
         # Regex
