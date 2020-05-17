@@ -77,39 +77,53 @@ def get_user_number(player):
 
 game_board = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
 game_board_available = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-first = check_first_go()
-if first == 'X':
-    second = 'O'
-else:
-    second = 'X'
-show_game_board()
 
-counter = 0
+
+def game():
+    first = check_first_go()
+    if first == 'X':
+        second = 'O'
+    else:
+        second = 'X'
+    show_game_board()
+    counter = 0
+    while True:
+        player_f = get_user_number(player=first)
+        coord = convert_number_coord(player_f)
+        update_game_board(coord, f'{first}')
+        counter += 1
+        clear()
+        show_game_board()
+        if counter > 4:
+            if check_if_win(f'{first}') != 0:
+                break
+        if counter > 8:
+            if len(game_board_available) == 0:
+                print('\033[32m    Draw \033[0m')
+                break
+        player_s = get_user_number(player=second)
+        coord = convert_number_coord(player_s)
+        update_game_board(coord, f'{second}')
+        counter += 1
+        clear()
+        show_game_board()
+        if counter > 4:
+            if check_if_win(f'{second}') != 0:
+                break
+
+
+game()
+
 while True:
-
-    Player_f = get_user_number(player=first)
-    coord = convert_number_coord(Player_f)
-    update_game_board(coord, f'{first}')
-    counter += 1
+    a = input(f"\033[32mPlease enter\033[93m\"space\"\033[0m\033[32m key for a new game, any other one for finish | \033[0m")
     clear()
-    show_game_board()
-
-    if counter > 4:
-        if check_if_win(f'{first}') != 0:
-            break
-    if counter > 8:
-        if len(game_board_available) == 0:
-            print('\033[32m    Draw \033[0m')
-            break
-    Player_s = get_user_number(player=second)
-    coord = convert_number_coord(Player_s)
-    update_game_board(coord, f'{second}')
-    counter += 1
-    clear()
-    show_game_board()
-    if counter > 4:
-        if check_if_win(f'{second}') != 0:
-            break
+    if len(a) > 0 and ord(a[0]) == 32:
+        game_board = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
+        game_board_available = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        game()
+    else:
+        print('\033[32m    Bye\033[0m')
+        break
 
 
 
