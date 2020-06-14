@@ -35,11 +35,10 @@ if __name__ == "__main__":
 
     if mode == 'y':
         for country in countries:
-            if " " in country.find("name").text.strip():  # check if space is present in a country name
+            if " " in country.get("name").strip():  # check if space is present in a country name
                 government_types.add(country.get('government').strip())
     else:
         for country in countries:
             government_types.add(country.get('government').strip())
 
     print(government_types, f'\nNumber of government types: {len(government_types)}')
-
