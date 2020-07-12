@@ -32,10 +32,7 @@ def insert_from_csv(f_name, formats, collection_obj):
 rows_inserted_p = insert_from_csv('Projects.csv', col_types_p, collection_p)
 rows_inserted_t = insert_from_csv('Tasks.csv', col_types_t, collection_t)
 
-canceled_projects = set()
-for x in collection_t.find({"Status": "Canceled"}):
-    canceled_projects.add(x['Project'])
-
+canceled_projects = set(x['Project'] for x in collection_t.find({"Status": "Canceled"}))
 print('Projects with canceled tasks:', *canceled_projects, sep='\n')
 
 conn.close()
